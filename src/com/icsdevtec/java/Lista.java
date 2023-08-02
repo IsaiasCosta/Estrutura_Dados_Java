@@ -1,42 +1,26 @@
 package com.icsdevtec.java;
 
-import java.security.PublicKey;
-import java.util.Arrays;
+import java.lang.reflect.Array;
+public class Lista<T> {
 
-public class Array {
-
-	private String[] elementos;
+	private T[] elementos;
 	private int tamanho;
 	private int posicao;
 	private String elemento;
 
-	public Array(int capacidade) {
-		this.elementos = new String[capacidade];
+	public Lista(int capacidade) {
+		this.elementos =(T[]) new Object[capacidade];
+		this.tamanho = 0;
+	}
+	
+	public Lista(int capacidade,Class<T> tipoClasse) {
+		this.elementos = (T[])Array.newInstance(tipoClasse,capacidade);
 		this.tamanho = 0;
 	}
 
-	/*
-	 * public void adiciona(String elemento) { // verificando se a elemento null for
-	 * (int i = 0; i < this.elementos.length; i++) { if(this.elementos[i]==null) {
-	 * this.elementos[i]=elemento; break; } }
-	 * 
-	 * 
-	 * }
-	 */
-
-	/*public void adiciona(String elemento) throws Exception {
-		if (this.tamanho < this.elementos.length) {
-		this.elementos[this.tamanho] = elemento;
-		this.tamanho++;
-		} else {
-			throw new Exception("Array com a capacidade de elemento completa !!!");
-		}
-		this.elementos[this.tamanho] = elemento;
-		this.tamanho++;
-	}*/
 
 	//Adicionar
-	public boolean adiciona(String elemento) {
+	public boolean adiciona(T elemento) {
 		this.aumentarCapacidade();
 		if (this.tamanho < this.elementos.length) {
 			this.elementos[this.tamanho] = elemento;
@@ -47,7 +31,7 @@ public class Array {
 		return false;
 	}
 	//Add elementos em qualquer posição
-	public boolean adiciona(int posicao, String elemento) {
+	public boolean adiciona(int posicao, T elemento) {
 
 		if(!(posicao>=0 && posicao< tamanho)) {
 			throw new  IllegalArgumentException("Posição Inválida ");
@@ -65,7 +49,7 @@ public class Array {
 
 	private void aumentarCapacidade(){
 		if(this.tamanho==this.elementos.length) {
-			String[]elementosNovos = new String[this.elementos.length*2];
+			T[] elementosNovos =  (T[]) new Object[this.elementos.length*2];
 			for(int i=0;i<this.elementos.length;i++) {
 				elementosNovos[i]=this.elementos[i];
 			}
@@ -73,7 +57,7 @@ public class Array {
 		}
 	}
 	// Busca
-	public String busca(int posicao) {
+	public T busca(int posicao) {
 
 		if(!(posicao>=0 && posicao< tamanho)) {
 			throw new  IllegalArgumentException("Posição Inválida ");
@@ -82,7 +66,7 @@ public class Array {
 	}
 
 	//Verificar se o objeto existe no vetor
-	public int busca(String elemento) {
+	public int busca(T elemento) {
 		for(int i=0; i<this.tamanho;i++) {
 			if(this.elementos[i].equals(elemento)) {
 				return i;
@@ -121,5 +105,6 @@ public class Array {
 		s.append("]");
 		return s.toString();
 	}
+
 
 }
