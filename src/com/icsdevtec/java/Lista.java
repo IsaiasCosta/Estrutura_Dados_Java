@@ -56,6 +56,11 @@ public class Lista<T> {
 			this.elementos=elementosNovos;
 		}
 	}
+	
+	//obtem
+	public T obtem (int posicao) {
+		return this.busca(posicao);
+	}
 	// Busca
 	public T busca(int posicao) {
 
@@ -68,6 +73,21 @@ public class Lista<T> {
 	//Verificar se o objeto existe no vetor
 	public int busca(T elemento) {
 		for(int i=0; i<this.tamanho;i++) {
+			if(this.elementos[i].equals(elemento)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	// Verificar se contem o elemento ou não
+	
+	public boolean contem(T elemento) {
+		return busca(elemento)>-1;
+	}
+	public int ultimaPosicao(T elemento) {
+		
+		for(int i=this.tamanho-1; i >=0 ; i--) {
 			if(this.elementos[i].equals(elemento)) {
 				return i;
 			}
@@ -89,6 +109,13 @@ public class Lista<T> {
 			this.elementos[i]=this.elementos[i+1];
 		}
 		this.tamanho --;
+	}
+	// busca e remove a posiçaõ do elemento 
+	public void remove(T elemento) {
+		int pos= this.busca(elemento);
+		if (pos>1) {
+			this.remove(pos);
+		}
 	}
 	@Override
 	public String toString() {
